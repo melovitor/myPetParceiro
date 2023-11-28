@@ -100,10 +100,10 @@ export function NewItem() {
         }
         setItemId('')
         setItemId(await addDocument(itemData, 'products'))
-        setItemData({})
-        Alert.alert('Sucesso', 'item adicionado com sucesso');
-        
         navigation.navigate('home')
+        Alert.alert('Sucesso', 'item adicionado com sucesso');
+        setItemData({})
+        
     }
   
     return (
