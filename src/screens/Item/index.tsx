@@ -72,8 +72,9 @@ export function Item(){
                     <Brand>{itemSelected.brand}</Brand>
                     <Name>{itemSelected.name}</Name>
                     <OptionsContainer>
-                        <Brand>Escolha uma opção</Brand>
+                        <Brand>Status do pedido</Brand>
                         <SizeContainer>
+                        <Counter>{Count} x</Counter>
                             <FlatList
                                 data={itemSelected.sizes}
                                 renderItem={({item}) => 
@@ -87,22 +88,9 @@ export function Item(){
                         </SizeContainer>
                             <PriceAndAddButtonContainer>
                             <Name>{priceFormatter.format(price)}</Name>
-                            <ButtonContainer> 
-                                <CounterContainer>
-                                    <TouchableOpacity onPress={() => {setCount(Count < 1 ? 0 : Count-1)}}>
-                                        <Minus size={30} color="#7C7C8A"/>
-                                    </TouchableOpacity>
-                                    <Counter>{Count}</Counter>
-                                    <TouchableOpacity onPress={() => {setCount(Count >= itemSelected.quantity  ?  itemSelected.quantity : Count+1 )}}>
-                                        <Plus size={30} color="#6495ED"/>
-                                    </TouchableOpacity>
-                                </CounterContainer>
-                                
-                                <Button onPress={ handleSelectedSize }>
-                                    <ButtonText>Adicionar</ButtonText>
-                                    <ButtonText>{priceFormatter.format((price*Count).toFixed(2))}</ButtonText>
-                                </Button>
-                            </ButtonContainer>
+                            <CounterContainer>
+                                    
+                                </CounterContainer> 
                             </PriceAndAddButtonContainer>            
                     </OptionsContainer>
                 </InfoContainer>
