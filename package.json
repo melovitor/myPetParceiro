@@ -31,10 +31,23 @@
     "react-native-svg-transformer": "^1.1.0",
     "react-native-web": "~0.19.6",
     "styled-components": "^6.0.7",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "expo-image-picker": "~14.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
-  "private": true
+  "private": true,
+  "expo": {
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
+  }
+  
+  
 }

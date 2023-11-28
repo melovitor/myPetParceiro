@@ -7,6 +7,7 @@ import { Settings } from '../screens/Settings';
 import { Item } from '../screens/Item';
 import { AddAdress } from '../screens/AddAdress';
 import { StyleSheet } from 'react-native';
+import { NewItem } from '../screens/NewItem';
 
 const {Navigator, Screen} = createBottomTabNavigator<AppRouts>()
 
@@ -28,6 +29,7 @@ type AppRouts = {
     listAdressOrPayments:undefined,
     editPayment:undefined,
     editAdress:undefined,
+    newItem:undefined,
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRouts>
@@ -101,6 +103,13 @@ export function AppRoutes(){
             <Screen
                 name='addAdress'
                 component={AddAdress}
+                options={{
+                    tabBarButton: () => null
+                }}
+            />
+            <Screen
+                name='newItem'
+                component={NewItem}
                 options={{
                     tabBarButton: () => null
                 }}

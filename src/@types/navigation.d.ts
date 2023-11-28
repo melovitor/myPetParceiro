@@ -18,6 +18,7 @@ export declare global {
             listAdressOrPayments:undefined,
             editPayment:undefined,
             editAdress:undefined,
+            newItem:undefined,
         }
     }
 }

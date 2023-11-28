@@ -88,7 +88,7 @@ export function Home(){
                         />
                 </IndicationsCardContainer>
                 <PetsCarrosel>
-                    <WrapperAnimalCard  onPress={() => {navigation.navigate('search'), setTag('dog')}}>
+                    <WrapperAnimalCard  onPress={() => {navigation.navigate('newItem'), setTag('dog')}}>
                         <PlusCircle  size={32}  color="#fff" weight="fill" />
                         <TitleAnimalCard>Adicionar produto</TitleAnimalCard>
                     </WrapperAnimalCard>
