@@ -26,34 +26,7 @@ export function Item(){
     useEffect(() => {
         const fistItem = itemSelected.sizes[0]
         handlePrice(fistItem)
-    }, [itemSelected])
-
-    function handleSelectedSize(){
-        if(!price) {
-            Alert.alert('Item', 'Ecolha uma opção do item antes de adicionar ao carrinho!' ,[
-                {
-                  text: 'Ok',
-                  onPress: () => null,
-                },
-            ]); 
-
-            return
-        }
-        const newitem = {
-            id: itemSelected.id,
-            name: itemSelected.name,
-            size: selectedSize,
-            unitValue,
-            total: (price*Count).toFixed(2),
-            image: itemSelected.image,
-            quantity: Count,
-            owner: itemSelected.owner,
-        }
-
-        setCart([...cart, newitem]);
-        navigation.navigate('cart')
-        
-    }   
+    }, [itemSelected]) 
     
 
     function handlePrice(item){
