@@ -36,7 +36,7 @@ export function Home(){
                     setUser(userData[0]);
 
                     if(!userData[0]) {
-                        await addDocument({email}, 'users')
+                        await addDocument({email}, 'partnes')
                         const userData = await getUser(email);
                         setUser(userData[0]);
                     }
@@ -88,7 +88,7 @@ export function Home(){
                         />
                 </IndicationsCardContainer>
                 <PetsCarrosel>
-                    <WrapperAnimalCard  onPress={() => {navigation.navigate('newItem'), setTag('dog')}}>
+                    <WrapperAnimalCard  onPress={() => {navigation.navigate('newItem')}}>
                         <PlusCircle  size={32}  color="#fff" weight="fill" />
                         <TitleAnimalCard>Adicionar produto</TitleAnimalCard>
                     </WrapperAnimalCard>

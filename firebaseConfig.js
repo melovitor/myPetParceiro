@@ -2,11 +2,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { initializeApp } from 'firebase/app';
 import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import { getFirestore, collection, query, where, getDocs, getDoc, doc, addDoc } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 // Optionally import the services that you want to use
 // import {...} from "firebase/database";
 // import {...} from "firebase/functions";
-// import {...} from "firebase/storage";
 
 
 const firebaseConfig = {
@@ -28,6 +28,7 @@ export const auth = initializeAuth(app, {
 })
 
 export const db = getFirestore(app)
+const storage = getStorage(app, "gs://mypet-9658b.appspot.com");;
 
 
 
@@ -53,7 +54,7 @@ export async function getItems(item, type, tag) {
 }
 
 export async function getUser(userEmail) {
-    const search = collection(db, 'users');
+    const search = collection(db, 'partnes');
     const q = query(search, where("email", "==", userEmail));
     const querySnapshot = await getDocs(q);
     const results = [];
@@ -101,3 +102,28 @@ export async function getFourItemsFromDb() {
 
     return results.slice(0, 4);
 }
+
+export async function uploadImageAsync(uri) {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+
+    try {
+        const storageRef = ref(storage, `Images/image-${Date.now()}`);
+        const result = await uploadBytes(storageRef, blob)
+        blob.close()
+        return await getDownloadURL(storageRef)
+    } catch (error) {
+        console.log(error);
+    }
+  }
