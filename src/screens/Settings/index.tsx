@@ -42,27 +42,20 @@ export function Settings(){
     return(
         <Container>
             <Text>Configurações</Text>
-            <CardSettings 
-                title="Pagamentos" 
-                subTitle="meus cartões" 
-                icon={<Icon.CreditCard   weight="light"/>}
-                onPress={() => {hendlePaymentOrAdress(); setPaymentOrAdress('Payment')}}/>
 
             <CardSettings 
-                title="Endereços" 
+                title="Unidades" 
                 subTitle="meus endereços"  
                 icon={<Icon.House   weight="light"/>}
                 onPress={() => {hendlePaymentOrAdress(); setPaymentOrAdress('Adress')}}/>
-
-
             <CardSettings 
                 title="Senha" 
                 subTitle="Altere sua senha" 
                 icon={<Icon.Lock weight="light"/>}
                 onPress={hendleChangePassword}/>
             <CardSettings 
-                title="Pedidos realizados" 
-                subTitle="Vejá seu histórico de pedidos" 
+                title="Resumo de faturamento" 
+                subTitle="Vejá seu histórico de faturamento" 
                 icon={<Icon.ListChecks weight="light"/>}
                 onPress={() => {navigation.navigate("orders")}}/>
             

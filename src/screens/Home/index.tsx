@@ -9,7 +9,7 @@ import { ImageAds } from "./Components/Ads/styles"
 import AdsImg from '../../assets/ads.png'
 
 import { CartItem } from "./Components/CardItem"
-import { Bird, Cat, Dog, Fish } from "phosphor-react-native"
+import { Cat, ListDashes, PlusCircle } from "phosphor-react-native"
 import { useContext, useEffect, useState } from "react"
 import { ContextProvider } from "../../contexts/Context"
 
@@ -89,12 +89,12 @@ export function Home(){
                 </IndicationsCardContainer>
                 <PetsCarrosel>
                     <WrapperAnimalCard  onPress={() => {navigation.navigate('search'), setTag('dog')}}>
-                        <Dog size={32}  color="#fff" weight="fill" />
-                        <TitleAnimalCard>Cachorros</TitleAnimalCard>
+                        <PlusCircle  size={32}  color="#fff" weight="fill" />
+                        <TitleAnimalCard>Adicionar produto</TitleAnimalCard>
                     </WrapperAnimalCard>
                     <WrapperAnimalCard  onPress={() => {navigation.navigate('search'), setTag('cat')}}>
-                        <Cat size={32}  color="#fff" weight="fill"/>
-                        <TitleAnimalCard>Gatos</TitleAnimalCard>
+                        <ListDashes  size={32}  color="#fff" weight="fill"/>
+                        <TitleAnimalCard>Pedidos em andamento</TitleAnimalCard>
                     </WrapperAnimalCard>
                 </PetsCarrosel>
             </Container>

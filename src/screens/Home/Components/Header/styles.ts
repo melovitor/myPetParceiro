@@ -18,6 +18,7 @@ export const Container = styled.View`
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    margin-left: 8px;
 `
 
 export const Cash = styled.Text`
