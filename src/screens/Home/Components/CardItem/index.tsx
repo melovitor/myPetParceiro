@@ -35,7 +35,13 @@ export function CartItem({name, image, quantity, sizes, brand, id, owner, price}
     return (
         <Wrapper onPress={handleSelectedItem}>
             <Illustration source={{ uri:image }} resizeMode="contain"/>
-            <Container>                
+            <Container>  
+                <Text>
+                    Vitor
+                </Text> 
+                <Text>
+                    R. Dr. Rene Fernandes, 08
+                </Text>              
                 <Text>
                     {name}
                 </Text>
