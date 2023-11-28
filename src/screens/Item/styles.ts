@@ -61,8 +61,8 @@ interface SizeOptions {
 
 export const Size = styled(TouchableOpacity)<SizeOptions>`
     background: ${({ theme, selected }) => selected ? theme.COLORS.BLUE_300 : theme.COLORS.WHITE};
-    max-width: 50px;
-    width: 50px;
+    max-width: 100px;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,9 +74,10 @@ export const Size = styled(TouchableOpacity)<SizeOptions>`
 `
 
 export const SizeText = styled.Text<SizeOptions>`
-    font-size: 18px;
+    font-size: 12px;
     color: ${({ theme, selected }) => selected ? theme.COLORS.BLUE_500 : theme.COLORS.GRAY_200};
     font-weight: bold;
+    text-align: center;
 `
 
 export const PriceAndAddButtonContainer = styled.View`

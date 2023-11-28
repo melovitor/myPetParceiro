@@ -10,7 +10,8 @@ import { ContextProvider } from "../../contexts/Context";
 import { priceFormatter } from "../../utils/formatter";
 import { connectFirestoreEmulator, count } from "firebase/firestore";
 
-
+const status = ['Preparando', 'Saiu para entrega', 'Entregue', 'Cancelado']
+const selectedItem = ['1Kg']
 
 export function Item(){
     const { itemSelected, cart, setCart } = useContext(ContextProvider)   
@@ -74,16 +75,31 @@ export function Item(){
                     <OptionsContainer>
                         <Brand>Status do pedido</Brand>
                         <SizeContainer>
-                        <Counter>{Count} x</Counter>
                             <FlatList
-                                data={itemSelected.sizes}
-                                renderItem={({item}) => 
-                                <Size  onPress={() => handlePrice(item)}  selected={selectedSize === item.size}>
-                                    <SizeText selected={selectedSize === item.size} >{ typeof item.size === "number" ? `${item.size}Kg` : item.size }</SizeText>
+                                data={status}
+                                renderItem={({item, index  }) => 
+                                <Size  onPress={() => handlePrice(item)}  selected={true}>
+                                    <SizeText selected={true} > {status[index]}</SizeText>
                                 </Size>
                                 } 
                                 key={itemSelected.sizes}
                                 horizontal
+                                showsHorizontalScrollIndicator={false}
+                            />
+                        </SizeContainer>
+                        <Brand>Quantidade</Brand>
+                        <SizeContainer>
+                        <Counter>{Count} x</Counter>
+                            <FlatList
+                                data={selectedItem}
+                                renderItem={({item, index}) => 
+                                <Size  onPress={() => handlePrice(item)}  selected={true}>
+                                    <SizeText selected={true} >{ selectedItem[index] }</SizeText>
+                                </Size>
+                                } 
+                                key={itemSelected.sizes}
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
                             />
                         </SizeContainer>
                             <PriceAndAddButtonContainer>
