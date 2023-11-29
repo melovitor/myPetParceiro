@@ -14,13 +14,13 @@ import { useContext, useEffect, useState } from "react"
 import { ContextProvider } from "../../contexts/Context"
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { addDocument, getFourItemsFromDb, getUser } from "../../../firebaseConfig"
+import { addDocument, getFourItemsFromDb, getNewOrders, getUser } from "../../../firebaseConfig"
 import { FlatList } from "react-native"
 
 
 export function Home(){
-    const { setUser, setTag, setSearch } = useContext(ContextProvider) 
-    const [getFourItems, setGetFourItens] = useState([])
+    const { setUser, setTag, setSearch, user } = useContext(ContextProvider) 
+    const [getNewOrdersState, setGetNewOrdersState] = useState([])
     
     
     const [email, setEmail] = useState('');
@@ -56,11 +56,11 @@ export function Home(){
         
         
     }, [email, setUser, auth]);
-    async function getFour(){
-        const fourItems = await getFourItemsFromDb();
-        setGetFourItens(fourItems);
+    async function getNewOrdersOnDB(){
+        setGetNewOrdersState(await getNewOrders(user.id));
+        
     }
-    getFour()
+    getNewOrdersOnDB()
     
     const navigation = useNavigation()
     return(
@@ -70,18 +70,20 @@ export function Home(){
                 <IndicationsCardContainer>
                     <Title>Novos pedidos</Title>
                     <FlatList
-                        data={getFourItems}
+                        data={getNewOrdersState}
                         renderItem={({ item }) => (
                             <CartItem
                                 id={item.id}
-                                image={item.data.image}
-                                name={item.data.name}
-                                price={item.data.sizes[0].value} 
+                                itemId={item.data.itemId}
+                                // image={item.data.data.image}
+                                // name={item.data.data.name}
+                                // price={item.data.data.sizes[0].value} 
                                 key={item.id}
-                                brand={item.data.brand}
-                                owner={item.data.owner}
+                                to={item.data.to}
+                                status={item.data.status}
                                 quantity={item.data.quantity}
-                                sizes={item.data.sizes}
+                                size={item.data.sizes}
+                                from={item.data.from}
                             />
                         )}
                         keyExtractor={(item) => item.id}

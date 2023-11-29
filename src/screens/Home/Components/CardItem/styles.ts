@@ -24,6 +24,11 @@ export const Container = styled.View`
     justify-content: center;
     align-items: start;
     gap: 4px;
+    
+`
+
+export const Text = styled.Text`
+    flex-wrap: wrap;
 `
 
 export const Amount = styled.Text`

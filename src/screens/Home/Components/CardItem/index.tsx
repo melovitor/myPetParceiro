@@ -1,52 +1,80 @@
-import { Text, View } from "react-native";
-import { Amount, Container, Illustration, Wrapper } from "./styles";
+import { Amount, Container, Illustration, Wrapper,Text } from "./styles";
 import { useNavigation } from '@react-navigation/native'
 import { priceFormatter } from "../../../../utils/formatter"; 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextProvider } from "../../../../contexts/Context";
+import { getItemById } from "../../../../../firebaseConfig";
 
 interface ItemProps {
-    name: string;
-    image: string;
-    quantity: number;
-    sizes: [],
-    brand: string,
     id: string;
-    owner: string;
-    price: string;
+    itemId: string;
+    status: number;
+    quantity: number,
+    size: string,
+    to: string;
+    key: string;
+    from: string
 }
-export function CartItem({name, image, quantity, sizes, brand, id, owner, price}: ItemProps){
+
+
+export function CartItem({id, itemId, status, quantity, size, to, key,from}: ItemProps){
     const navigation = useNavigation()
     const { setItemSelected } = useContext(ContextProvider)   
+    const [itemData, setItemData] = useState({})
+    const [userData, setUSerData] = useState({})
 
-    function handleSelectedItem(){    
-        setItemSelected({
-            id,
-            name,
-            image,
-            quantity,
-            sizes,
-            brand,
-            owner
-        });
-        navigation.navigate("item")
-    }    
+    useEffect(() => {
+        console.log("cartItem: " ,
+        id, 
+        itemId, 
+        status, 
+        quantity, 
+        size, 
+        to,
+        key,
+        from
+    )
+
+    
+    async function getItem(){
+        setItemData(await getItemById(itemId, 'products'))
+    }
+    async function getUser(){
+        setUSerData(await getItemById(from, 'users'))
+    }
+
+    getItem()
+    getUser()
+    }, [])
+    
+    // function handleSelectedItem(){    
+    //     setItemSelected({
+    //         id,
+    //         name,
+    //         image,
+    //         quantity,
+    //         sizes,
+    //         brand,
+    //         owner
+    //     });
+    //     navigation.navigate("item")
+    // }    
 
     return (
-        <Wrapper onPress={handleSelectedItem}>
-            <Illustration source={{ uri:image }} resizeMode="contain"/>
+        <Wrapper >
+            <Illustration source={{ uri:itemData?.image }} resizeMode="contain"/>
             <Container>  
                 <Text>
-                    Vitor
+                    {userData?.name}
                 </Text> 
                 <Text>
-                    R. Dr. Rene Fernandes, 08
+                   {`${userData?.rua}, ${userData?.numero}`}
                 </Text>              
                 <Text>
-                    {name}
+                    {itemData?.name}
                 </Text>
                 <Amount>
-                    {priceFormatter.format(price)}
+                    {/* {priceFormatter.format(price)} */}
                 </Amount>
             </Container>
         </Wrapper>

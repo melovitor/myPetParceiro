@@ -78,8 +78,8 @@ export async function getCartUser(userId) {
     return results;
 }
 
-export async function getItemById(itemId) {
-    const docRef = doc(db, 'products', itemId);
+export async function getItemById(itemId, table) {
+    const docRef = doc(db, table, itemId);
     const docSnap  = await getDoc(docRef);
     const results =  docSnap.data()
     return results;
@@ -126,4 +126,22 @@ export async function uploadImageAsync(uri) {
     } catch (error) {
         console.log(error);
     }
-  }
+}
+
+
+export async function getNewOrders(id) {
+    const search = collection(db, 'orders');
+    const q = query(
+        search,
+        where("to", "==", id),
+        where("status", "==", 1)
+    );
+    const querySnapshot = await getDocs(q);
+    const results = [];
+    querySnapshot.forEach((doc) => {
+        results.push({ id: doc.id, data: doc.data() });
+    });
+
+    return results;
+}
+
