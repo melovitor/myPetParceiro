@@ -47,21 +47,21 @@ export function CartItem({id, itemId, status, quantity, size, to, key,from}: Ite
     getUser()
     }, [])
     
-    // function handleSelectedItem(){    
-    //     setItemSelected({
-    //         id,
-    //         name,
-    //         image,
-    //         quantity,
-    //         sizes,
-    //         brand,
-    //         owner
-    //     });
-    //     navigation.navigate("item")
-    // }    
+    function handleSelectedItem(){    
+        setItemSelected({
+            id,
+            name: itemData?.name,
+            image: itemData?.image,
+            quantity,
+            size,
+            brand: itemData?.brand,
+            owner: to
+        });
+        navigation.navigate("item")
+    }    
 
     return (
-        <Wrapper >
+        <Wrapper onPress={handleSelectedItem} >
             <Illustration source={{ uri:itemData?.image }} resizeMode="contain"/>
             <Container>  
                 <Text>
