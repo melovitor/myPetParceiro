@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { initializeApp } from 'firebase/app';
 import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
-import { getFirestore, collection, query, where, getDocs, getDoc, doc, addDoc } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, getDoc, doc, addDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 // Optionally import the services that you want to use
@@ -134,7 +134,7 @@ export async function getNewOrders(id) {
     const q = query(
         search,
         where("to", "==", id),
-        where("status", "==", 1)
+        where("status", "==", 0)
     );
     const querySnapshot = await getDocs(q);
     const results = [];
@@ -145,3 +145,13 @@ export async function getNewOrders(id) {
     return results;
 }
 
+export async function updateItemValue (documentId, newValue) {
+    console.log("updateItemValue", documentId, newValue)
+    const itemRef = doc(db, 'orders', documentId); 
+    try {
+      await updateDoc(itemRef, { status: newValue });
+      console.log('Valor atualizado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao atualizar valor:', error.message);
+    }
+  };

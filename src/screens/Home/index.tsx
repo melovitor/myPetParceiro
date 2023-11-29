@@ -75,15 +75,13 @@ export function Home(){
                             <CartItem
                                 id={item.id}
                                 itemId={item.data.itemId}
-                                // image={item.data.data.image}
-                                // name={item.data.data.name}
-                                // price={item.data.data.sizes[0].value} 
                                 key={item.id}
                                 to={item.data.to}
                                 status={item.data.status}
                                 quantity={item.data.quantity}
-                                size={item.data.sizes}
+                                size={item.data.size}
                                 from={item.data.from}
+                                price={item.data.price}
                             />
                         )}
                         keyExtractor={(item) => item.id}

@@ -9,81 +9,68 @@ import { Alert, FlatList, TouchableOpacity } from "react-native";
 import { ContextProvider } from "../../contexts/Context";
 import { priceFormatter } from "../../utils/formatter";
 import { connectFirestoreEmulator, count } from "firebase/firestore";
+import { updateItemValue } from "../../../firebaseConfig";
 
-const status = ['Preparando', 'Saiu para entrega', 'Entregue', 'Cancelado']
-const selectedItem = ['1Kg']
+const STATUS = [
+    { text: 'Preparando', color: '#6495ED' },
+    { text: 'Saiu para entrega', color: '#A0CBFF' },
+    { text: 'Entregue', color: '#00B37E' },
+    { text: 'Destinatario ausente', color: '#FF4D4F' }
+]
 
-export function Item(){
-    const { itemSelected, cart, setCart } = useContext(ContextProvider)   
-
-    const navigation = useNavigation()
-    const [Count, setCount] = useState(1)    
-    const [unitValue, setUnitValue] = useState()
-    const [selectedSize, setSelectedSize] = useState('')
-    const [price, setPrice] = useState(0)
-
-
-    useEffect(() => {
-        const fistItem = itemSelected.sizes[0]
-        handlePrice(fistItem)
-    }, [itemSelected]) 
-    
-
-    function handlePrice(item){
-        setSelectedSize(item.size)
-        setPrice(item.value)
-        setUnitValue(item.value)
-    }
-
+export function Item() {
+    const { itemSelected } = useContext(ContextProvider);
+    const [selectedStatus, setSelectedStatus] = useState(itemSelected.status);
+  
+    const navigation = useNavigation();
+  
+    async function handleStatusChange(index){
+      setSelectedStatus(index);
+        console.log(itemSelected.id, index)
+      await updateItemValue(itemSelected.id, index)
+    };
+  
+    console.log(itemSelected);
+  
     return (
-        <Wrapper>
-            <Header title="Item" />
-            <Container>
-                <BannerContainer>
-                    <Banner source={{ uri: itemSelected.image }} resizeMode="contain"/>
-                </BannerContainer>
-                <InfoContainer>
-                    <Brand>{itemSelected.brand}</Brand>
-                    <Name>{itemSelected.name}</Name>
-                    <OptionsContainer>
-                        <Brand>Status do pedido</Brand>
-                        <SizeContainer>
-                            <FlatList
-                                data={status}
-                                renderItem={({item, index  }) => 
-                                <Size  onPress={() => handlePrice(item)}  selected={true}>
-                                    <SizeText selected={true} > {status[index]}</SizeText>
-                                </Size>
-                                } 
-                                key={itemSelected.sizes}
-                                horizontal
-                                showsHorizontalScrollIndicator={false}
-                            />
-                        </SizeContainer>
-                        <Brand>Quantidade</Brand>
-                        <SizeContainer>
-                        <Counter>{Count} x</Counter>
-                            <FlatList
-                                data={selectedItem}
-                                renderItem={({item, index}) => 
-                                <Size  onPress={() => handlePrice(item)}  selected={true}>
-                                    <SizeText selected={true} >{ selectedItem[index] }</SizeText>
-                                </Size>
-                                } 
-                                key={itemSelected.sizes}
-                                horizontal
-                                showsHorizontalScrollIndicator={false}
-                            />
-                        </SizeContainer>
-                            <PriceAndAddButtonContainer>
-                            <Name>{priceFormatter.format(price)}</Name>
-                            <CounterContainer>
-                                    
-                                </CounterContainer> 
-                            </PriceAndAddButtonContainer>            
-                    </OptionsContainer>
-                </InfoContainer>
-            </Container>
-        </Wrapper>
-    )
-}
+      <Wrapper>
+        <Header title="Item" />
+        <Container>
+          <BannerContainer>
+            <Banner source={{ uri: itemSelected.image }} resizeMode="contain" />
+          </BannerContainer>
+          <InfoContainer>
+            <Brand>{itemSelected.brand}</Brand>
+            <Name>{itemSelected.name}</Name>
+            <OptionsContainer>
+              <Brand>Status do pedido</Brand>
+              <SizeContainer>
+                <FlatList
+                  data={STATUS}
+                  renderItem={({ item, index }) => (
+                    <Size onPress={() => handleStatusChange(index)} selected={selectedStatus === index}>
+                      <SizeText selected={selectedStatus === index}>{item.text}</SizeText>
+                    </Size>
+                  )}
+                  keyExtractor={(item) => item.text}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                />
+              </SizeContainer>
+              <Brand>Quantidade</Brand>
+              <SizeContainer>
+                <Counter>{itemSelected.quantity} x</Counter>
+                <Size onPress={() => {}} selected={true}>
+                  <SizeText selected={true}>{itemSelected.size}</SizeText>
+                </Size>
+              </SizeContainer>
+              <PriceAndAddButtonContainer>
+                <Name>{priceFormatter.format(itemSelected.price)}</Name>
+                <CounterContainer>{/* Adicione sua lógica aqui, se necessário */}</CounterContainer>
+              </PriceAndAddButtonContainer>
+            </OptionsContainer>
+          </InfoContainer>
+        </Container>
+      </Wrapper>
+    );
+  }

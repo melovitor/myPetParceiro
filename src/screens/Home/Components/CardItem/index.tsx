@@ -10,14 +10,16 @@ interface ItemProps {
     itemId: string;
     status: number;
     quantity: number,
-    size: string,
+    size: number,
     to: string;
     key: string;
     from: string
+    price: number
 }
 
 
-export function CartItem({id, itemId, status, quantity, size, to, key,from}: ItemProps){
+
+export function CartItem({id, itemId, status, quantity, size, to, key, from, price}: ItemProps){
     const navigation = useNavigation()
     const { setItemSelected } = useContext(ContextProvider)   
     const [itemData, setItemData] = useState({})
@@ -32,7 +34,8 @@ export function CartItem({id, itemId, status, quantity, size, to, key,from}: Ite
         size, 
         to,
         key,
-        from
+        from,
+        price
     )
 
     
@@ -55,7 +58,9 @@ export function CartItem({id, itemId, status, quantity, size, to, key,from}: Ite
             quantity,
             size,
             brand: itemData?.brand,
-            owner: to
+            owner: to,
+            price,
+            status
         });
         navigation.navigate("item")
     }    
@@ -74,7 +79,7 @@ export function CartItem({id, itemId, status, quantity, size, to, key,from}: Ite
                     {itemData?.name}
                 </Text>
                 <Amount>
-                    {/* {priceFormatter.format(price)} */}
+                    {priceFormatter.format(price)}
                 </Amount>
             </Container>
         </Wrapper>
