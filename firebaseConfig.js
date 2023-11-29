@@ -155,3 +155,34 @@ export async function updateItemValue (documentId, newValue) {
       console.error('Erro ao atualizar valor:', error.message);
     }
   };
+
+export async function getFineshedOrders(id) {
+    const search = collection(db, 'orders');
+    const q = query(
+        search,
+        where("to", "==", id),
+        where("status", "==", 2)
+    );
+    const querySnapshot = await getDocs(q);
+    const results = [];
+    querySnapshot.forEach((doc) => {
+        results.push({ id: doc.id, data: doc.data() });
+    });
+
+    return results;
+}
+
+export async function getCurrentOrders(id) {
+    const search = collection(db, 'orders');
+    const q = query(
+        search,
+        where("to", "==", id)
+    );
+    const querySnapshot = await getDocs(q);
+    const results = [];
+    querySnapshot.forEach((doc) => {
+        results.push({ id: doc.id, data: doc.data() });
+    });
+
+    return results;
+}

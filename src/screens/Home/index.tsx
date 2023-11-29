@@ -35,11 +35,11 @@ export function Home(){
                     const userData = await getUser(email);
                     setUser(userData[0]);
 
-                    if(!userData[0]) {
-                        await addDocument({email}, 'partnes')
-                        const userData = await getUser(email);
-                        setUser(userData[0]);
-                    }
+                    // if(!userData[0]) {
+                    //     await addDocument({email}, 'partnes')
+                    //     const userData = await getUser(email);
+                    //     setUser(userData[0]);
+                    // }
                 } 
             } catch (error) {
                 console.log(error); 
@@ -92,7 +92,7 @@ export function Home(){
                         <PlusCircle  size={32}  color="#fff" weight="fill" />
                         <TitleAnimalCard>Adicionar produto</TitleAnimalCard>
                     </WrapperAnimalCard>
-                    <WrapperAnimalCard  onPress={() => {navigation.navigate('search'), setTag('cat')}}>
+                    <WrapperAnimalCard  onPress={() => {navigation.navigate('search')}}>
                         <ListDashes  size={32}  color="#fff" weight="fill"/>
                         <TitleAnimalCard>Pedidos em andamento</TitleAnimalCard>
                     </WrapperAnimalCard>

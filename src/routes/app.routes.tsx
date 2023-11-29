@@ -9,6 +9,7 @@ import { AddAdress } from '../screens/AddAdress';
 import { StyleSheet } from 'react-native';
 import { NewItem } from '../screens/NewItem';
 import { ListAdressOrPayments } from '../screens/ListAdressOrPayments';
+import { Search } from '../screens/Search';
 
 const {Navigator, Screen} = createBottomTabNavigator<AppRouts>()
 
@@ -118,6 +119,13 @@ export function AppRoutes(){
             <Screen
                 name='newItem'
                 component={NewItem}
+                options={{
+                    tabBarButton: () => null
+                }}
+            />
+            <Screen
+                name='search'
+                component={Search}
                 options={{
                     tabBarButton: () => null
                 }}

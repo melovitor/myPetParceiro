@@ -57,7 +57,7 @@ export function Settings(){
                 title="Resumo de faturamento" 
                 subTitle="Vejá seu histórico de faturamento" 
                 icon={<Icon.ListChecks weight="light"/>}
-                onPress={() => {navigation.navigate("orders")}}/>
+                onPress={() => {navigation.navigate('search')}}/>
             
             <CardSettings 
                 title="Sair" 
